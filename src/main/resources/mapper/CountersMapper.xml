@@ -7,10 +7,11 @@
         <result property="count" column="count"/>
         <result property="createdAt" column="createdAt" javaType="java.time.LocalDateTime" />
         <result property="updatedAt" column="updatedAt" javaType="java.time.LocalDateTime"  />
+        <result property="_openid" column="_openid" />
     </resultMap>
 
     <select id="getCounter" resultMap="countersMapper" parameterType="java.lang.Integer">
-        SELECT `id`, `count`, `createdAt`, `updatedAt`
+        SELECT `id`, `count`, `createdAt`, `updatedAt`, `_openid`
         FROM Counters
         WHERE id = #{id}
     </select>
@@ -23,8 +24,8 @@
     </delete>
 
     <update id="upsertCount" parameterType="com.tencent.wxcloudrun.model.Counter">
-        INSERT INTO `Counters`(`id`, `count`)
-        VALUE(#{id}, #{count}) 
+        INSERT INTO `Counters`(`id`, `count`, `_openid`)
+        VALUE(#{id}, #{count}, #{_openid}) 
         ON DUPLICATE KEY UPDATE count=#{count}
     </update>
 
